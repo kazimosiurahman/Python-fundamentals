@@ -1,0 +1,64 @@
+##In Python, functions are first-class objects. 
+#This means that functions can be passed around, and used as arguments, just like any other value (e.g, string, int, float)
+
+def foo(a):
+    return a+1
+
+def roo(foo,arg):
+    
+    return foo(arg)
+
+print(roo(foo,4))
+
+#The method being first class, methods can be defined inside the first class method. They are called nested methods
+#but when you call second as a seprate one it doesn't work
+#just like I can use first class functions as parameters to pass to another method I can return the methods same way
+#while returning if only second was given then second would include the address of the seccond function while () gives and calls the function
+
+
+def parent():
+    print("printing the first line")
+    def second():
+        return "defining the second"
+    return(second())  
+    
+print(parent())
+
+#now let us look at decorator
+#The task of a decorator function is to modify the function of what it works
+#decorator is used to change the behaviour of the function altogether
+
+
+def mydecorator(some_function=None):
+    
+    def wrapper():
+        num=12
+        try:
+            assert(num==10)
+            print("Before some function working")
+            some_function()
+            print("After some fucntion working")
+        except AssertionError:
+            print("The numbers not matching")
+    return wrapper
+
+def some_other_function():
+    print("Whee")
+    
+    
+if __name__=="__main__":
+    some_other_function=mydecorator(some_other_function)
+    some_other_function()
+    
+    
+#Now let us look at a different way of calling a decorator
+#Python allows you to simplify the calling of decorators using the @ symbol (this is called “pie” syntax).
+
+import mydecorator
+
+@mydecorator
+def some_other_function():
+    print("Whee")
+    
+some_other_function()  
+#@my_decorator is just an easier way of saying just_some_function = my_decorator(just_some_function)
